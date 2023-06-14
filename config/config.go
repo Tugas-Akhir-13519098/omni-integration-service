@@ -10,7 +10,7 @@ type Config struct {
 	KafkaOrderTopic         string `envconfig:"KAFKA_ORDER_TOPIC" default:"order"`
 	KafkaOrderConsumerGroup string `envconfig:"KAFKA_ORDER_CONSUMER_GROUP" default:"omni-order-consumer-group"`
 
-	OmnichannelURL string `envconfig:"OMNICHANNEL_URL" default:"http://localhost:8080/api/v1/order/"`
+	OmnichannelURL string `envconfig:"OMNICHANNEL_URL" default:"http://localhost:8080/api/v1/order"`
 }
 
 // Get to get defined configuration
