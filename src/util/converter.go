@@ -26,7 +26,9 @@ func ConvertKafkaOrderMessageToCreateOrderRequest(orderMessage model.KafkaOrderM
 
 	createOrderRequest := model.CreateOrderRequest{
 		TokopediaOrderID: orderMessage.TokopediaOrderID,
+		TokopediaShopID:  orderMessage.TokopediaShopID,
 		ShopeeOrderID:    orderMessage.ShopeeOrderID,
+		ShopeeShopID:     orderMessage.ShopeeShopID,
 		TotalPrice:       orderMessage.TotalPrice,
 		Customer:         customer,
 		OrderStatus:      orderMessage.OrderStatus,

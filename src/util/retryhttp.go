@@ -4,13 +4,17 @@ import (
 	"bytes"
 	"fmt"
 	"net/http"
+	"omni-integration-service/config"
 
 	"github.com/hashicorp/go-retryablehttp"
 )
 
 func SendPostRequest(body *bytes.Buffer, url string) (*http.Response, error) {
 	retryClient := NewRetryClient()
-	resp, err := retryClient.Post(url, "application/json", body)
+	req, _ := retryablehttp.NewRequest("POST", url, body)
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer "+config.Get().AdminToken)
+	resp, err := retryClient.Do(req)
 
 	if err != nil {
 		return nil, err
@@ -23,6 +27,7 @@ func SendPutRequest(body *bytes.Buffer, url string) (*http.Response, error) {
 	retryClient := NewRetryClient()
 	req, _ := retryablehttp.NewRequest("PUT", url, body)
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer "+config.Get().AdminToken)
 	resp, err := retryClient.Do(req)
 
 	if err != nil {
