@@ -11,7 +11,7 @@ type Config struct {
 	KafkaOrderConsumerGroup string `envconfig:"KAFKA_ORDER_CONSUMER_GROUP" default:"omni-order-consumer-group"`
 
 	OmnichannelURL string `envconfig:"OMNICHANNEL_URL" default:"http://localhost:8080/api/v1/order"`
-	AdminToken     string `envconfig:"FIREBASE_KEY_PATH" default:""`
+	AdminToken     string `envconfig:"ADMIN_TOKEN" default:""`
 }
 
 // Get to get defined configuration
