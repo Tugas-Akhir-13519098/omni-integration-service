@@ -61,3 +61,17 @@ func ConvertKafkaOrderMessageToUpdateOrderStatusRequest(orderMessage model.Kafka
 
 	return responseBody
 }
+
+func ConvertToErrorMessage(method string, url string, req string, err string, status string, reqTime string) []byte {
+	message := model.KafkaErrorMessage{
+		Method:      method,
+		Url:         url,
+		RequestBody: req,
+		Error:       err,
+		Status:      status,
+		RequestTime: reqTime,
+	}
+	messageByte, _ := json.Marshal(message)
+
+	return messageByte
+}

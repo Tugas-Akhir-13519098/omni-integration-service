@@ -41,3 +41,12 @@ type KafkaProduct struct {
 	ProductPrice       float32 `json:"product_price"`
 	ProductQuantity    int     `json:"product_quantity"`
 }
+
+type KafkaErrorMessage struct {
+	Method      string `json:"method"`
+	Url         string `json:"url"`
+	RequestBody string `json:"request_body"`
+	Error       string `json:"error"`
+	Status      string `json:"status"`
+	RequestTime string `json:"request_time"`
+}

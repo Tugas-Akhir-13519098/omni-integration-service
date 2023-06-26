@@ -51,13 +51,13 @@ func (ps *orderService) ConsumeOrderMessages() {
 			createOrderBody := util.ConvertKafkaOrderMessageToCreateOrderRequest(kafkaOrderMessage)
 			url := cfg.OmnichannelURL
 			resp, _ := util.SendPostRequest(createOrderBody, url)
-			util.AfterHTTPRequestHandler(resp, "CREATE", kafkaOrderMessage.TokopediaOrderID, kafkaOrderMessage.ShopeeOrderID)
+			util.AfterHTTPRequestHandler(createOrderBody.String(), resp, "CREATE", "POST", kafkaOrderMessage.TokopediaOrderID, kafkaOrderMessage.ShopeeOrderID)
 
 		} else { // orderMessage.Method == model.UPDATE
 			updateOrderBody := util.ConvertKafkaOrderMessageToUpdateOrderStatusRequest(kafkaOrderMessage)
 			url := cfg.OmnichannelURL
 			resp, _ := util.SendPutRequest(updateOrderBody, url)
-			util.AfterHTTPRequestHandler(resp, "UPDATE", kafkaOrderMessage.TokopediaOrderID, kafkaOrderMessage.ShopeeOrderID)
+			util.AfterHTTPRequestHandler(updateOrderBody.String(), resp, "UPDATE", "PUT", kafkaOrderMessage.TokopediaOrderID, kafkaOrderMessage.ShopeeOrderID)
 		}
 	}
 }
