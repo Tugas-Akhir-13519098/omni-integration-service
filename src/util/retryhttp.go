@@ -89,14 +89,14 @@ func NewRetryClient() *retryablehttp.Client {
 	return retryClient
 }
 
-func AfterHTTPRequestHandler(req string, resp *http.Response, method string, httpMethod string, tokopediaID int, shopeeID string) {
+func AfterHTTPRequestHandler(req string, resp *http.Response, method string, httpMethod string, tokopediaID int, shopeeID string, url string) {
 	orderResponse := ConvertHTTPResponseToOrderResponse(resp.Body)
 	cfg := config.Get()
 
 	if IsFailResponse(resp) {
 		fmt.Printf("Failed to send HTTP %s Request with status: %s and error: %s\n", httpMethod, resp.Status, orderResponse.Message)
 
-		kafkaMessage := ConvertToErrorMessage(httpMethod, cfg.OmnichannelURL, req, orderResponse.Message, resp.Status, time.Now().Format("2006-01-02 15:04:05"))
+		kafkaMessage := ConvertToErrorMessage(httpMethod, url, req, orderResponse.Message, resp.Status, time.Now().Format("2006-01-02 15:04:05"))
 
 		// Publish to Kafka Error Topic
 		config := kafka.WriterConfig{
